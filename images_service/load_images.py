@@ -25,7 +25,7 @@ class ImageIngestionService:
                 text = self.ocr.get_text(full_path)
                 data = self.metadata.get_metadata_from_image(full_path, text)
 
-                self.publisher.publish(topic='raw_images', data=data)
+                self.publisher.publish(topic='RAW', data=data)
 
                 results.append(data)
         return results

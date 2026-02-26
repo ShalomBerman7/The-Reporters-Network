@@ -10,8 +10,8 @@ from shared.logger import get_logger
 
 logger = get_logger("ElasticService")
 
-
-es = Elasticsearch(["http://localhost:9200"])
+ES_URL = os.getenv('ELASTICSEARCH_URL', "http://localhost:9200")
+es = Elasticsearch(ES_URL)
 INDEX_NAME = "reporters_network"
 
 
@@ -57,5 +57,5 @@ def save_to_elastic(data):
         logger.error(f"Failed to index image {image_id}: {e}")
 
 create_index_if_not_exists()
-consumer = KafkaConsumer(topics=['clean_images', 'cleaned_data'])
-consumer.listen(callback=save_to_elastic)
+consumer = KafkaConsumer(topics=['RAW', 'CLEAN', 'ANALYTICS'], group_id='elastic_indexer_group')
+consumer.listen(save_to_elastic)

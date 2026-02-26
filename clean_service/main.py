@@ -25,7 +25,7 @@ def main():
 
             cleaned_data = cleaner.process_message(raw_data)
 
-            publisher.publish('cleaned_data', cleaned_data)
+            publisher.publish('CLEAN', cleaned_data)
 
             logger.info(f"Successfully cleaned and published: {file_name}")
             pretty_json = json.dumps(cleaned_data, indent=4, ensure_ascii=False)
@@ -35,7 +35,7 @@ def main():
             logger.error(f"Failed to process and publish: {e}")
 
     try:
-        consumer.listen(topic='raw_images', callback=handle_message)
+        consumer.listen(topic='RAW', callback=handle_message)
     except KeyboardInterrupt:
         logger.info("Clean Service stopped by user")
 

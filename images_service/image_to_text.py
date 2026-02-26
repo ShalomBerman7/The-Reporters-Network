@@ -2,8 +2,11 @@ import pytesseract
 from PIL import Image
 
 class OCREngine:
-    def __init__(self, tesseract_path=r'C:\Program Files\Tesseract-OCR\tesseract.exe'):
-        pytesseract.pytesseract.tesseract_cmd = tesseract_path
+    def __init__(self):
+        pass
+
+    # def __init__(self, tesseract_path=r'C:\Program Files\Tesseract-OCR\tesseract.exe'):
+    #     pytesseract.pytesseract.tesseract_cmd = tesseract_path
 
     def get_text(self, image_path):
         try:
