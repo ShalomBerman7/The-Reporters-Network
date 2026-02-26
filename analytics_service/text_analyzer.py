@@ -4,6 +4,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 nltk.download('vader_lexicon', quiet=True)
 
+
 class TextAnalyzer:
     def __init__(self):
         self.logger = get_logger('TextAnalyzer')
@@ -11,15 +12,15 @@ class TextAnalyzer:
 
     def text_analyze(self, text):
         if not text:
-            return 'ניטרלי'
+            return 'Neutral'
 
         score = self.analyzer.polarity_scores(text)
         if score['compound'] >= 0.5000:
-            return 'חיובי'
+            return 'Positive'
         elif -0.4991 <= score['compound'] <= 0.4999:
-            return 'ניטרלי'
+            return 'Neutral'
         else:
-            return 'שלילי'
+            return 'Negative'
 
     def process_message(self, data):
         text_to_analyze = data.get('clean text', data.get('text', ''))

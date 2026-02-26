@@ -1,5 +1,4 @@
 import os
-import uuid
 from datetime import datetime
 from PIL import Image
 
@@ -15,7 +14,7 @@ class MetadataExtractor:
             file_size_kb = round(file_stats.st_size / 1024, 2)
             creation_time = datetime.fromtimestamp(file_stats.st_ctime).strftime('%Y-%m-%d %H:%M:%S')
             metadata = {
-                "image_id": str(uuid.uuid4()),
+                "image_id": os.path.basename(image_path),
                 "file_name": os.path.basename(image_path),
                 "format": file_format,
                 "dimensions": f"{width}x{height}",

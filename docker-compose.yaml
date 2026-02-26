@@ -54,6 +54,8 @@ services:
       context: .
       dockerfile: images_service/Dockerfile
     container_name: images_service
+    ports:
+      - "8000:8000"
     depends_on:
       - kafka
       - mongodb

@@ -36,8 +36,10 @@ class KafkaConsumer:
                 if msg is None:
                     continue
                 if msg.error():
+                    if msg.error().code() == 3:
+                        continue
                     self.logger.error(f"Consumer error: {msg.error()}")
-                    break
+                    continue
 
                 data = json.loads(msg.value().decode('utf-8'))
 
@@ -48,10 +50,3 @@ class KafkaConsumer:
 
         finally:
             self.consumer.close()
-
-def get_data(data):
-    return data
-
-con = KafkaConsumer('cleaned_data')
-
-print(get_data())

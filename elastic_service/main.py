@@ -57,5 +57,5 @@ def save_to_elastic(data):
         logger.error(f"Failed to index image {image_id}: {e}")
 
 create_index_if_not_exists()
-consumer = KafkaConsumer(topics=['RAW', 'CLEAN', 'ANALYTICS'], group_id='elastic_indexer_group')
+consumer = KafkaConsumer(topics=['RAW', 'CLEAN', 'ANALYTICS'], group_id='elastic_group')
 consumer.listen(save_to_elastic)
