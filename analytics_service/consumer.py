@@ -12,7 +12,7 @@ class KafkaConsumer:
         else:
             self.topics = topics
 
-        self.logger = get_logger('KafkaConsumer')
+        self.logger = get_logger('AnalyticConsumer')
 
         servers = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'localhost:29092')
 
@@ -27,7 +27,7 @@ class KafkaConsumer:
         self.consumer.subscribe(self.topics)
         self.logger.info(f"Consumer connected to {servers}")
 
-    def listen(self, save_to_elastic):
+    def listen(self, get_data):
         self.logger.info(f"Listening to topic: {self.topics}")
 
         try:
@@ -44,7 +44,14 @@ class KafkaConsumer:
                 file_name = data.get('file_name', 'unknown')
                 self.logger.info(f"New message received: {file_name}")
 
-                save_to_elastic(data)
+                get_data(data)
 
         finally:
             self.consumer.close()
+
+def get_data(data):
+    return data
+
+con = KafkaConsumer('cleaned_data')
+
+print(get_data())

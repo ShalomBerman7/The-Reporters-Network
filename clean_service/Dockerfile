@@ -10,4 +10,4 @@ COPY . .
 
 ENV PYTHONPATH=/app
 
-CMD ["uvicorn", "images_service.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "clean_service/main.py"]

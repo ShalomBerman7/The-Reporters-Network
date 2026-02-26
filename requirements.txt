@@ -6,3 +6,4 @@ confluent-kafka
 pymongo
 python-dotenv
 pathlib
+elasticsearch

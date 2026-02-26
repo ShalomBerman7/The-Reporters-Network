@@ -63,15 +63,39 @@ services:
     volumes:
       - ./data:/app/data
 
-#  clean_service:
-#    build:
-#      context: .
-#      dockerfile: ./clean_service/Dockerfile
-#    container_name: clean_service
-#    depends_on:
-#      - kafka
-#    environment:
-#      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  clean_service:
+    build:
+      context: .
+      dockerfile: clean_service/Dockerfile
+    container_name: clean_service
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+
+  analytics_service:
+    build:
+      context: .
+      dockerfile: analytics_service/Dockerfile
+    container_name: analytics_service
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+
+  elastic_service:
+    build:
+      context: .
+      dockerfile: elastic_service/Dockerfile
+    container_name: elastic_service
+    depends_on:
+      - kafka
+      - elasticsearch
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      ELASTICSEARCH_URL: http://elasticsearch:9200
 
 volumes:
   mongo_data:
